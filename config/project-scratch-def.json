@@ -1,5 +1,5 @@
 {
-  "orgName": "macbook company",
+  "orgName": "Acme",
   "edition": "Developer",
   "features": ["EnableSetPasswordInApi"],
   "settings": {
