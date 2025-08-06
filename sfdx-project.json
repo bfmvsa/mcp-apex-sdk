@@ -3,10 +3,22 @@
     {
       "path": "force-app",
       "default": true
+    },
+    {
+      "versionName": "ver 0.1",
+      "versionNumber": "0.1.0.NEXT",
+      "path": "force-app/main/sdk",
+      "default": false,
+      "package": "MCP Apex SDK",
+      "versionDescription": "Apex SDK for building Model Context Protocol (MCP) servers natively in Salesforce"
     }
   ],
   "name": "MCP Apex SDK",
-  "namespace": "",
+  "namespace": "ctx",
   "sfdcLoginUrl": "https://login.salesforce.com",
-  "sourceApiVersion": "64.0"
+  "sourceApiVersion": "64.0",
+  "packageAliases": {
+    "MCP Apex SDK": "0HoN200000000o1KAA",
+    "MCP Apex SDK@0.1.0-3": "04tN2000000mIibIAE"
+  }
 }
