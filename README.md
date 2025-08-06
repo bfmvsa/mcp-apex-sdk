@@ -115,7 +115,7 @@ public with sharing class BookAppointmentTool extends ctx.Tool {
 }
 ```
 
-### Step 3: Register Tools with the Server
+### Step 3: Register tools in the server
 
 Now that we've implemented our tools, we need to register them with the server:
 
