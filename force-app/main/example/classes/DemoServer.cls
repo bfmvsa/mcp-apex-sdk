@@ -1,4 +1,7 @@
-// https://{instance_url}/services/apexrest/mcp
+/**
+ * https://{instance_url}/services/apexrest/mcp (for instances WITHOUT namespace)
+ * https://{instance_url}/services/apexrest/{namespace}/mcp (for instances WITH namespace)
+ */
 @RestResource(UrlMapping='/mcp/*')
 global with sharing class DemoServer {
     @HttpPost

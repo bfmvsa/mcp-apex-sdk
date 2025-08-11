@@ -1,3 +1,8 @@
+/**
+ * Prompts are designed to be user-controlled, meaning they are exposed from servers to clients with the intention
+ * of the user being able to explicitly select them for use.
+ * https://modelcontextprotocol.io/specification/2025-06-18/server/prompts
+ */
 public with sharing class DemoPrompt extends Prompt {
     public DemoPrompt() {
         super('code_review', 'Code Review', 'Asks the LLM to analyze code quality and suggest improvements');
