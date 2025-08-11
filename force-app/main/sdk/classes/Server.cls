@@ -7,6 +7,7 @@ global with sharing class Server {
 
     private final List<Tool> tools = new List<Tool>();
     private final List<Resource> resources = new List<Resource>();
+    private final List<Prompt> prompts = new List<Prompt>();
 
     global Server(String version, String name) {
         this.version = version;
@@ -44,6 +45,14 @@ global with sharing class Server {
 
     public List<Resource> getResources() {
         return this.resources;
+    }
+
+    global void registerPrompt(Prompt prompt) {
+        this.prompts.add(prompt);
+    }
+
+    public List<Prompt> getPrompts() {
+        return this.prompts;
     }
 
     global void run() {
