@@ -20,7 +20,14 @@ public with sharing class Method {
             return this.toolsList();
         } else if (this.request.method == 'tools/call') {
             return this.toolsCall();
+        } else if (this.request.method == 'prompts/list') {
+            return this.promptsList();
+        } else if (this.request.method == 'prompts/get') {
+            return this.promptsGet();
         }
+
+        // TODO: Add list of unsupported methods, and do not throw exception
+
         throw new mcpException(mcpException.Code.METHOD_NOT_FOUND);
     }
 
@@ -54,6 +61,12 @@ public with sharing class Method {
         }
         if (!this.mcpServer.getTools().isEmpty()) {
             gen.writeFieldName('tools');
+            gen.writeStartObject();
+            gen.writeBooleanField('listChanged', true);
+            gen.writeEndObject();
+        }
+        if (!this.mcpServer.getPrompts().isEmpty()) {
+            gen.writeFieldName('prompts');
             gen.writeStartObject();
             gen.writeBooleanField('listChanged', true);
             gen.writeEndObject();
@@ -168,6 +181,52 @@ public with sharing class Method {
         gen.writeEndArray();
 
         gen.writeBooleanField('isError', hasError);
+        gen.writeEndObject();
+
+        return new Response(Integer.valueOf(this.request.id), gen.getAsString()).toJson();
+    }
+
+    public String promptsList() {
+        JSONGenerator gen = JSON.createGenerator(true);
+        gen.writeStartObject();
+
+        gen.writeFieldName('prompts');
+        gen.writeStartArray();
+        for (Prompt prompt : this.mcpServer.getPrompts()) {
+            gen.writeObject(JSON.deserializeUntyped(prompt.toJson()));
+        }
+        gen.writeEndArray();
+        gen.writeEndObject();
+
+        return new Response(Integer.valueOf(this.request.id), gen.getAsString()).toJson();
+    }
+
+    public String promptsGet() {
+        Map<String, Object> params = request.params;
+        String promptName = (String) params.get('name');
+        Map<String, Object> arguments = (Map<String, Object>) params.get('arguments');
+
+        List<Prompt.Message> resultMessages = new List<Prompt.Message>();
+        Boolean hasError = false;
+        for (Prompt prompt : this.mcpServer.getPrompts()) {
+            if (prompt.getName() == promptName) {
+                try {
+                    resultMessages = prompt.get(arguments);
+                } catch (Exception e) {
+                    hasError = true;
+                }
+            }
+        }
+
+        JSONGenerator gen = JSON.createGenerator(true);
+        gen.writeStartObject();
+        gen.writeStringField('description', 'desc');
+        gen.writeFieldName('messages');
+        gen.writeStartArray();
+        for (Prompt.Message message : resultMessages) {
+            gen.writeObject(JSON.deserializeUntyped(message.toJson()));
+        }
+        gen.writeEndArray();
         gen.writeEndObject();
 
         return new Response(Integer.valueOf(this.request.id), gen.getAsString()).toJson();
