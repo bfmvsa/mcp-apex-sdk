@@ -24,7 +24,7 @@ This Apex SDK implements the MCP specification, enabling you to:
 ## Quick Start
 
 1. [Install](#installation-links) the package in your Salesforce org
-2. Deploy demo classes from the `force-app/main/example` folder
+2. [Deploy](force-app/main/example/classes) the demo classes from the `force-app/main/example/` folder
 3. [Expose](#how-to-expose-server) the `DemoServer` from the example folder as a REST resource
 4. [Test](#testing-the-mcp-server) the functionality using
    the [MCP Inspector](https://github.com/modelcontextprotocol/inspector) tool
