@@ -15,11 +15,11 @@ This Apex SDK implements the MCP specification, enabling you to:
 
 ## Installation Links
 
-[![Static Badge](https://img.shields.io/badge/Deploy%20To%20Production-%23009EDB?style=for-the-badge&logo=salesforce&logoColor=white)](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tN2000000mIibIAE)
+[![Static Badge](https://img.shields.io/badge/Deploy%20To%20Production-%23009EDB?style=for-the-badge&logo=salesforce&logoColor=white)](https://login.salesforce.com/packaging/installPackage.apexp?p0=04tN2000000mLmvIAE)
 
-[![Static Badge](https://img.shields.io/badge/Deploy%20To%20Sandbox-%23009EDB?style=for-the-badge&logo=salesforce&logoColor=white)](https://test.salesforce.com/packaging/installPackage.apexp?p0=04tN2000000mIibIAE)
+[![Static Badge](https://img.shields.io/badge/Deploy%20To%20Sandbox-%23009EDB?style=for-the-badge&logo=salesforce&logoColor=white)](https://test.salesforce.com/packaging/installPackage.apexp?p0=04tN2000000mLmvIAE)
 
-`/packaging/installPackage.apexp?p0=04tN2000000mIibIAE`
+`/packaging/installPackage.apexp?p0=04tN2000000mLmvIAE`
 
 ## Quick Start
 
