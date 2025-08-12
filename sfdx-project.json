@@ -5,8 +5,8 @@
       "default": true
     },
     {
-      "versionName": "ver 0.1",
-      "versionNumber": "0.1.0.NEXT",
+      "versionName": "ver 0.2",
+      "versionNumber": "0.2.0.NEXT",
       "path": "force-app/main/sdk",
       "default": false,
       "package": "MCP Apex SDK",
@@ -19,6 +19,7 @@
   "sourceApiVersion": "64.0",
   "packageAliases": {
     "MCP Apex SDK": "0HoN200000000o1KAA",
-    "MCP Apex SDK@0.1.0-3": "04tN2000000mIibIAE"
+    "MCP Apex SDK@0.1.0-3": "04tN2000000mIibIAE",
+    "MCP Apex SDK@0.2.0-1": "04tN2000000mLmvIAE"
   }
 }
