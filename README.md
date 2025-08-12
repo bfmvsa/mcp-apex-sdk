@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Model Context Protocol (MCP) provides a standardized way for applications to supply context to LLMs, separating
+The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/getting-started/intro) provides a standardized way for applications to supply context to LLMs, separating
 context provision from LLM interaction.
 
 This Apex SDK implements the MCP specification, enabling you to:
