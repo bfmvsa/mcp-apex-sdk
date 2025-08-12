@@ -3,11 +3,11 @@
  * of the user being able to explicitly select them for use.
  * https://modelcontextprotocol.io/specification/2025-06-18/server/prompts
  */
-public with sharing class DemoPrompt extends Prompt {
+public with sharing class DemoPrompt extends ctx.Prompt {
     public DemoPrompt() {
         super('code_review', 'Code Review', 'Asks the LLM to analyze code quality and suggest improvements');
 
-        this.arguments.add(new Argument('code', 'The code to review', true));
+        this.addArgument(new Argument('code', 'The code to review', true));
     }
 
     public override List<Message> get(Map<String, Object> input) {

@@ -6,7 +6,7 @@
 global with sharing class DemoServer {
     @HttpPost
     global static void post() {
-        Server server = new Server('1.0.0', 'DemoServer');
+        ctx.Server server = new ctx.Server('1.0.0', 'DemoServer');
         server.registerTool(new DemoTool());
         server.registerResource(new DemoResource());
         server.registerPrompt(new DemoPrompt());
