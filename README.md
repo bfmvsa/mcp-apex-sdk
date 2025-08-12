@@ -2,7 +2,8 @@
 
 ## Overview
 
-The Model Context Protocol (MCP) provides a standardized way for applications to supply context to LLMs, separating context provision from LLM interaction.
+The Model Context Protocol (MCP) provides a standardized way for applications to supply context to LLMs, separating
+context provision from LLM interaction.
 
 This Apex SDK implements the MCP specification, enabling you to:
 
@@ -25,7 +26,8 @@ This Apex SDK implements the MCP specification, enabling you to:
 1. [Install](#installation-links) the package in your Salesforce org
 2. Deploy demo classes from the `force-app/main/example` folder
 3. [Expose](#how-to-expose-server) the `DemoServer` from the example folder as a REST resource
-4. [Test](#testing-the-mcp-server) the functionality using the [MCP Inspector](https://github.com/modelcontextprotocol/inspector) tool
+4. [Test](#testing-the-mcp-server) the functionality using
+   the [MCP Inspector](https://github.com/modelcontextprotocol/inspector) tool
 
 <a name="how-to-expose-server"></a>
 
@@ -55,7 +57,8 @@ To test the server, use the [MCP Inspector](https://github.com/modelcontextproto
 2. Enter your server URL (e.g., `https://{instance_url}/services/apexrest/mcp`)
 3. Click **Connect**
 
-After a successful connection, you'll see the list of available resources, tools, and prompts, as shown in the screenshot below:
+After a successful connection, you'll see the list of available resources, tools, and prompts, as shown in the
+screenshot below:
 
 ![MCP Inspector](https://i.imgur.com/pkNvuRg.png)
 
@@ -266,9 +269,9 @@ String title = 'Oil Change';
 String text = 'Oil Change Service';
 
 ctx.Resource.Content content = new ctx.Resource.Content(uri, text)
-    .setTitle(title)
-    .setMimeType('text/plain')
-    .setText(text);
+        .setTitle(title)
+        .setMimeType('text/plain')
+        .setText(text);
 ```
 
 #### 4.4 Creating ctx.Resource.Content with Binary Content
@@ -279,10 +282,10 @@ String name = 'example.png';
 String title = 'Example Image';
 
 ctx.Resource.Content content = new ctx.Resource.Content(uri)
-    .setName(name)
-    .setTitle(title)
-    .setMimeType('image/png')
-    .setBlobData('base64-encoded-data');
+        .setName(name)
+        .setTitle(title)
+        .setMimeType('image/png')
+        .setBlobData('base64-encoded-data');
 ```
 
 ### 5. Adding Resource Annotations
@@ -305,5 +308,78 @@ public with sharing class CarServiceResource extends ctx.Resource {
   }
 
   // ...
+}
+```
+
+## Prompts
+
+### 1. Creating a Prompt (Required Fields Only)
+
+```apex
+public with sharing class CodeReviewPrompt extends ctx.Prompt {
+  public CodeReviewPrompt() {
+    super('code-review');
+  }
+
+  // ...
+}
+```
+
+### 2. Creating a Prompt (All Available Fields)
+
+```apex
+public with sharing class CodeReviewPrompt extends ctx.Prompt {
+  public CodeReviewPrompt() {
+    super('code-review', 'Code Review', 'Asks the LLM to analyze code quality and suggest improvements');
+  }
+
+  // ...
+}
+```
+
+### 3. Creating a Prompt Using Method Chaining
+
+```apex
+public with sharing class CodeReviewPrompt extends ctx.Prompt {
+  public CodeReviewPrompt() {
+    super('code-review');
+    this.setTitle('Code Review').setDescription('Asks the LLM to analyze code quality and suggest improvements');
+  }
+
+  // ...
+}
+```
+
+### 4. Adding Prompt Arguments
+
+```apex
+public with sharing class CodeReviewPrompt extends ctx.Prompt {
+  public CodeReviewPrompt() {
+    super('code-review', 'Code Review', 'Asks the LLM to analyze code quality and suggest improvements');
+
+    ctx.Prompt.Argument code = new ctx.Prompt.Argument('code', 'The code to review', true);
+
+    this.addArgument(code);
+  }
+
+  // ...
+}
+```
+
+### 5. Retrieving Prompt Messages
+
+```apex
+public with sharing class CodeReviewPrompt extends ctx.Prompt {
+  // ...
+
+  public override List<ctx.Prompt.Message> get(Map<String, Object> input) {
+    String code = (String) input.get('code');
+
+    List<ctx.Prompt.Message> messages = new List<ctx.Prompt.Message>();
+
+    messages.add(new ctx.Prompt.Message('user', 'Review the following code and suggest improvements: ' + code));
+
+    return messages;
+  }
 }
 ```
