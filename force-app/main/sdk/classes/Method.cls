@@ -24,6 +24,8 @@ public with sharing class Method {
             return this.promptsList();
         } else if (this.request.method == 'prompts/get') {
             return this.promptsGet();
+        } else if (this.request.method == 'ping') {
+            return this.ping();
         }
 
         // TODO: Add list of unsupported methods, and do not throw exception
@@ -230,5 +232,9 @@ public with sharing class Method {
         gen.writeEndObject();
 
         return new Response(Integer.valueOf(this.request.id), gen.getAsString()).toJson();
+    }
+
+    public String ping() {
+        return new Response(Integer.valueOf(this.request.id), '{}').toJson();
     }
 }
