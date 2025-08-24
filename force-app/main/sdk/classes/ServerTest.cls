@@ -20,6 +20,18 @@ public class ServerTest {
         }
     }
 
+    private class TestPrompt extends Prompt {
+        public TestPrompt(String name) {
+            super(name);
+        }
+
+        public override List<Message> get(Map<String, Object> input) {
+            List<Message> messages = new List<Message>();
+            messages.add(new Message('user', 'Test prompt message'));
+            return messages;
+        }
+    }
+
     @IsTest
     static void testConstructorWithVersionAndName() {
         Server server = new Server('1.0.0', 'TestServer');
@@ -102,6 +114,31 @@ public class ServerTest {
         List<Resource> resources = server.getResources();
 
         System.assertEquals(2, resources.size());
+    }
+
+    @IsTest
+    static void testRegisterAndGetPrompt() {
+        Server server = new Server('1.0.0', 'TestServer');
+        TestPrompt prompt = new TestPrompt('test_prompt');
+
+        server.registerPrompt(prompt);
+        List<Prompt> prompts = server.getPrompts();
+
+        System.assertEquals(1, prompts.size());
+        System.assertEquals(prompt, prompts[0]);
+    }
+
+    @IsTest
+    static void testRegisterMultiplePrompts() {
+        Server server = new Server('1.0.0', 'TestServer');
+        TestPrompt prompt1 = new TestPrompt('prompt1');
+        TestPrompt prompt2 = new TestPrompt('prompt2');
+
+        server.registerPrompt(prompt1);
+        server.registerPrompt(prompt2);
+        List<Prompt> prompts = server.getPrompts();
+
+        System.assertEquals(2, prompts.size());
     }
 
     @IsTest

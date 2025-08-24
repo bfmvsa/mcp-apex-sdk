@@ -23,6 +23,18 @@ public class MethodTest {
         }
     }
 
+    private class TestPrompt extends Prompt {
+        public TestPrompt(String name) {
+            super(name);
+        }
+
+        public override List<Message> get(Map<String, Object> input) {
+            List<Message> messages = new List<Message>();
+            messages.add(new Message('user', 'Test prompt message'));
+            return messages;
+        }
+    }
+
     private static Server createTestServer() {
         Server server = new Server('1.0.0', 'TestServer', 'Test Title', 'Test Instructions');
 
@@ -33,6 +45,9 @@ public class MethodTest {
         TestResource templateResource = new TestResource('test://template/{id}', 'TemplateResource');
         server.registerResource(resource);
         server.registerResource(templateResource);
+
+        TestPrompt prompt = new TestPrompt('test_prompt');
+        server.registerPrompt(prompt);
 
         return server;
     }
@@ -222,6 +237,32 @@ public class MethodTest {
     }
 
     @IsTest
+    static void testPromptsList() {
+        Server server = createTestServer();
+        Request request = createRequest('11', 'prompts/list', new Map<String, Object>());
+        Method method = new Method(server, request);
+
+        String result = method.promptsList();
+
+        System.assert(result.contains('prompts'));
+    }
+
+    @IsTest
+    static void testPromptsGet() {
+        Server server = createTestServer();
+        Map<String, Object> params = new Map<String, Object>{
+            'name' => 'test_prompt',
+            'arguments' => new Map<String, Object>()
+        };
+        Request request = createRequest('12', 'prompts/get', params);
+        Method method = new Method(server, request);
+
+        String result = method.promptsGet();
+
+        System.assert(result.contains('messages'));
+    }
+
+    @IsTest
     static void testCapabilitiesWithEmptyLists() {
         Server server = new Server('1.0.0', 'EmptyServer');
         Request request = createRequest('11', 'initialize', new Map<String, Object>());
@@ -242,5 +283,16 @@ public class MethodTest {
         String result = method.initialize();
 
         System.assert(result.contains('42'));
+    }
+
+    @IsTest
+    static void testPing() {
+        Server server = createTestServer();
+        Request request = createRequest('12', 'ping', new Map<String, Object>());
+        Method method = new Method(server, request);
+
+        String result = method.ping();
+
+        System.assert(result.contains('12'));
     }
 }
