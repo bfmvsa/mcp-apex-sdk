@@ -1,8 +1,11 @@
 {
   "orgName": "Acme",
   "edition": "Developer",
-  "features": ["EnableSetPasswordInApi"],
+  "features": ["EnableSetPasswordInApi", "Communities"],
   "settings": {
+    "communitiesSettings": {
+      "enableNetworksEnabled": true
+    },
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true
     },
